@@ -38,13 +38,13 @@ class FlightCrawler{
         }
 
         $this->hasLanded = false;
-        $flight_url = FlightCrawler::BASEURL.$this->flight;
+        $flightURL = FlightCrawler::BASEURL.$this->flight;
 
         if($this->debug){
-            echo $flight_url;
+            echo $flightURL;
         }
 
-        $this->content = file_get_contents($flight_url);
+        $this->content = file_get_contents($flightURL);
 
         if($this->content !== false){
             $cut_content = '';
@@ -71,7 +71,7 @@ class FlightCrawler{
             }
         }
         else{
-            throw new \Exception('Could not get a result from '.$flight_url, 12);
+            throw new \Exception('Could not get a result from '.$flightURL, 12);
         }
 
         if($writeResult){
