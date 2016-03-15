@@ -6,6 +6,8 @@ $lookupDate = '2016-03-15';
 
 $flightCrawl = new FlightCrawl\FlightCrawler($flight, $lookupDate);
 
+$result = false;
+
 try{
 	$result = $flightCrawl->crawlData(true, true);
 } catch (Exception $e) {
