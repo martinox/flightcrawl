@@ -29,6 +29,14 @@ class FlightCrawler{
     }
 
     public function crawlData($returnResult=false, $writeResult=true){
+
+        if(empty($this->flight)){
+            throw new \Exception('No flight', 10);
+        }
+        if(empty($this->lookupDate)){
+            throw new \Exception('No lookupDate', 11);
+        }
+
         $this->hasLanded = false;
         $flight_url = FlightCrawler::BASEURL.$this->flight;
 
@@ -60,8 +68,10 @@ class FlightCrawler{
                         }
                     }
                 }
-
             }
+        }
+        else{
+            throw new \Exception('Could not get a result from '.$flight_url, 12);
         }
 
         if($writeResult){
@@ -79,11 +89,8 @@ class FlightCrawler{
             $output = $this->preOutput.' '.date('Y-m-d H:i:s');
             $output .= PHP_EOL;
             $output .= '$has_landed='.($this->hasLanded?'true':'false').';'.PHP_EOL;
-            if(file_put_contents($this->targetFile, $output) !== false){
-
-            }
-            else{
-
+            if(file_put_contents($this->targetFile, $output) === false){
+                throw new \Exception('Could not write status to file '.$this->targetFile, 13);
             }
         }
     }
